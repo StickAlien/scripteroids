@@ -8,6 +8,7 @@ function Raumschiff(ort){
 	var dMax = 10;
 	var akku = 100;
 	var reaktor = 0.4;
+	var triebwerk = true;
 	var linksdrehen, rechtsdrehen, schubgeben, feuern;
 	linksdrehen = rechtsdrehen = schubgeben = feuern = false;
 	var tag = document.createElement("div");
@@ -71,7 +72,10 @@ function Raumschiff(ort){
 	this.bewegen = function(){
 		if(linksdrehen) richtung -= spin;
 		if(rechtsdrehen) richtung += spin;
-		if(schubgeben) beschleunigen();
+		if(schubgeben&&triebwerk&&akku>=2){
+			beschleunigen();
+			akku -= 2;
+		}
 		if(feuern) schiessen();
 		px += dx;
 		py += dy;
@@ -82,6 +86,9 @@ function Raumschiff(ort){
 		tag.style.left = (px-mitteX)+"px";
 		tag.style.top = (py-mitteY)+"px";
 		tag.style.transform = "rotate("+richtung+"deg)";
+		console.log(akku);
+		if(akku<1) triebwerk = false;
+		if(akku>=20) triebwerk = true;
 		if(akku<100-reaktor){
 			akku += reaktor;
 		}

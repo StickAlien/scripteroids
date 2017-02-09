@@ -7,11 +7,26 @@ function GUI(ort){
 	
 	this.killAsteroid = function(tier){
 		this.punktzahl += 20+30*(tier>1)+50*(tier>2);
-		punkte.innerHTML = this.punktzahl;
 	}
 	
 	var energie = document.createElement("div");
-	energie.innerHTML = meinSchiff.getAkku();
 	energie.id = "energie";
 	ort.appendChild(energie);
+	var needEnergie = document.createElement("div");
+	needEnergie.id ="needEnergie";
+	energie.appendChild(needEnergie);
+	var energieBalken = document.createElement("div");
+	energieBalken.id = "energieBalken"
+	energieBalken.style.width = meinSchiff.getAkku()+"%";
+	energie.appendChild(energieBalken);
+	
+	this.aktualisieren = function(){
+		punkte.innerHTML = this.punktzahl;
+		if(meinSchiff){
+			energieBalken.style.width = meinSchiff.getAkku()+"%";
+		}
+		else{
+			energieBalken.style.width = "0%";
+		}
+	}
 }

@@ -6,7 +6,7 @@ initialisieren(spielfeld);
 function initialisieren(ort){
 	asteroiden = [];
 	geschosse = [];
-	for(i=0;i<10;i++){
+	for(i=0;i<5;i++){
 		asteroiden.push(new Asteroid(ort));
 	}
 	meinSchiff = new Raumschiff(ort);
@@ -15,7 +15,7 @@ function initialisieren(ort){
 }
 
 function aktualisieren(){
-	for(i=asteroiden.length-1;i>=0;i--){
+	for(var i=asteroiden.length-1;i>=0;i--){
 		asteroiden[i].bewegen();
 		if(meinSchiff&&abstand(asteroiden[i],meinSchiff)<50){
 			meinSchiff.explodieren();
@@ -23,18 +23,21 @@ function aktualisieren(){
 		}
 	}
 	
-	for(i=geschosse.length-1;i>=0;i--){
+	for(var i=geschosse.length-1;i>=0;i--){
 		geschosse[i].bewegen();
-		for(j=asteroiden.length-1;j>=0;j--){
-			if(abstand(geschosse[i],asteroiden[j])<40){
-				geschosse[i].verschwinden();
-				asteroiden[j].zerfallen();
-				break;
+		if(geschosse[i]){
+			for(var j=asteroiden.length-1;j>=0;j--){
+				if(abstand(geschosse[i],asteroiden[j])<40){
+					geschosse[i].verschwinden();
+					asteroiden[j].zerfallen();
+					break;
+				}
 			}
 		}
 	}
 	
 	if(meinSchiff) meinSchiff.bewegen();
+	dasGUI.aktualisieren();
 }
 
 function abstand(one,two){

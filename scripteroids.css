@@ -26,6 +26,25 @@
 	z-index: 5;
 	right: 0;
 	bottom: 0;
-	font-size: 48px;
-	margin-right: 5px;
+	border: solid 5px white;
+	height: 40px;
+	width: 200px;
+	margin: 0 5px 5px 0;
+	background-color: black;
+}
+
+#energieBalken{
+	position: absolute;
+	background-color: lightblue;
+	height: 40px;
+	z-index: 7;
+}
+
+#needEnergie{
+	position: absolute;
+	background-color: lightblue;
+	height: 40px;
+	opacity: 0.6;
+	width: 20%;
+	z-index: 6;
 }

@@ -26,7 +26,7 @@ function Asteroid(ort, startX = 0, startY = 0, ordnung = 1){
 	
 	this.verschwinden = function(){
 		ort.removeChild(this.getTag());
-		for(i=asteroiden.length-1;i>=0;i--){
+		for(var i=asteroiden.length-1;i>=0;i--){
 			if(asteroiden[i]==this){
 				asteroiden.splice(i,1);
 				break;
