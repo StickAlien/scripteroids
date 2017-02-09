@@ -9,6 +9,7 @@ function Raumschiff(ort){
 	var akku = 100;
 	var reaktor = 0.4;
 	var triebwerk = true;
+	this.invin = false;
 	var linksdrehen, rechtsdrehen, schubgeben, feuern;
 	linksdrehen = rechtsdrehen = schubgeben = feuern = false;
 	var tag = document.createElement("div");
@@ -66,7 +67,13 @@ function Raumschiff(ort){
 	}
 	
 	this.explodieren = function(){
+		leben--;
 		this.verschwinden();
+	}
+	
+	this.invincible = function(){
+		this.invin = true;
+		window.setTimeout(function(){meinSchiff.invin = false}, 2000);
 	}
 	
 	this.bewegen = function(){
@@ -86,7 +93,6 @@ function Raumschiff(ort){
 		tag.style.left = (px-mitteX)+"px";
 		tag.style.top = (py-mitteY)+"px";
 		tag.style.transform = "rotate("+richtung+"deg)";
-		console.log(akku);
 		if(akku<1) triebwerk = false;
 		if(akku>=20) triebwerk = true;
 		if(akku<100-reaktor){
@@ -95,6 +101,17 @@ function Raumschiff(ort){
 		else{
 			akku = 100;
 		}
+		if(this.invin){
+			var blink = window.setInterval(blinken(),1000);
+		}
+		else{
+			window.clearInterval(blink);
+		}
+	}
+	
+	function blinken(){
+		tag.style.visibility = "hidden";
+		window.setTimeout(function(){tag.style.visibility = "visible"}, 500);
 	}
 	
 	this.getPx = function(){
@@ -111,5 +128,9 @@ function Raumschiff(ort){
 	
 	this.getAkku = function(){
 		return akku;
+	}
+	
+	this.getTrieb = function(){
+		return triebwerk;
 	}
 }

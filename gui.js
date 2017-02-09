@@ -24,6 +24,12 @@ function GUI(ort){
 		punkte.innerHTML = this.punktzahl;
 		if(meinSchiff){
 			energieBalken.style.width = meinSchiff.getAkku()+"%";
+			if(meinSchiff.getTrieb()){
+				energieBalken.style.backgroundColor = "lightblue";
+			}
+			else{
+				energieBalken.style.backgroundColor = "red";
+			}
 		}
 		else{
 			energieBalken.style.width = "0%";

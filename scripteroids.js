@@ -1,4 +1,4 @@
-var spielfeld, takt, meinSchiff, asteroiden, geschosse, einUFO, dasGUI;
+var spielfeld, takt, meinSchiff, asteroiden, geschosse, einUFO, dasGUI, leben;
 spielfeld = document.getElementById("anzeige");
 
 initialisieren(spielfeld);
@@ -6,6 +6,7 @@ initialisieren(spielfeld);
 function initialisieren(ort){
 	asteroiden = [];
 	geschosse = [];
+	leben = 3;
 	for(i=0;i<5;i++){
 		asteroiden.push(new Asteroid(ort));
 	}
@@ -17,9 +18,16 @@ function initialisieren(ort){
 function aktualisieren(){
 	for(var i=asteroiden.length-1;i>=0;i--){
 		asteroiden[i].bewegen();
-		if(meinSchiff&&abstand(asteroiden[i],meinSchiff)<50){
+		if(meinSchiff&&abstand(asteroiden[i],meinSchiff)<50&&!meinSchiff.invin){
 			meinSchiff.explodieren();
 			asteroiden[i].zerfallen();
+			if(leben>0){
+				meinSchiff = new Raumschiff(spielfeld);
+				meinSchiff.invincible();
+			}
+			else{
+				alert("GAME OVER!");
+			}
 		}
 	}
 	
