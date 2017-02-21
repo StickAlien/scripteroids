@@ -7,9 +7,7 @@ function initialisieren(ort){
 	asteroiden = [];
 	geschosse = [];
 	leben = 3;
-	for(i=0;i<5;i++){
-		asteroiden.push(new Asteroid(ort));
-	}
+	spawnAsteroids(ort,5);
 	meinSchiff = new Raumschiff(ort);
 	takt = window.setInterval(aktualisieren, 1000/60);
 	dasGUI = new GUI(ort);
@@ -44,6 +42,7 @@ function aktualisieren(){
 		}
 	}
 	
+	if(asteroiden.length==0) spawnAsteroids(spielfeld,5);
 	if(meinSchiff) meinSchiff.bewegen();
 	dasGUI.aktualisieren();
 }
@@ -53,4 +52,10 @@ function abstand(one,two){
 	var yAbstand = one.getPy()-two.getPy();
 	var entfernung = Math.sqrt(xAbstand*xAbstand+yAbstand*yAbstand);
 	return entfernung;
+}
+
+function spawnAsteroids(ort,anzahl){
+	for(i=0;i<anzahl;i++){
+		asteroiden.push(new Asteroid(ort));
+	}
 }
